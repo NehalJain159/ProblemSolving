@@ -1,0 +1,68 @@
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+    public static double max(double a[])
+    {
+        double ans=0;
+        for(int j=0;j<a.length;j++)
+        ans=Math.max(ans,a[j]);
+        return ans;
+    }
+    public static double sum(double a[])
+    {
+        double sum=0;
+        for(int j=0;j<a.length;j++)
+        sum+=a[j];
+        return sum;
+    }
+	public static void main (String[] args) throws IOException{
+	    BufferedReader bf=new BufferedReader(new InputStreamReader(System.in));
+	    int t=Integer.parseInt(bf.readLine());
+	    for(int i=0;i<t;i++)
+	    {
+	        int n=Integer.parseInt(bf.readLine());
+	        String s[]=bf.readLine().split(" ");
+	        double a[]=new double[n];
+	        for(int j=0;j<n;j++)
+	        a[j]=Integer.parseInt(s[j]);
+	        int m=Integer.parseInt(bf.readLine());
+	        double l=max(a);
+	        double h=sum(a);
+	        double ans=-1;
+	        while(l<h)
+            {
+                double max=l+(int)(h-l)/2;
+                int stud=pagesDist(max,a);
+                
+                if(stud>m)
+                l=max+1;
+                else 
+                h=max;
+                
+            }
+            ans=l;
+            if(n<m)ans=-1;
+            System.out.println((int)ans);
+	    }
+	}
+	
+	public static int pagesDist(double max,double a[])
+	{
+	    int count=1;double s=0;
+	    for(int j=0;j<a.length;j++)
+	    {
+	        if(s+a[j]<=max)
+	        s+=a[j];
+	        else
+	        {
+	            s=a[j];
+	            ++count;
+	        }
+	    }
+	    return count;
+	}
+}
