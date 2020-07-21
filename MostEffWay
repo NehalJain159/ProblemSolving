@@ -1,0 +1,21 @@
+class Minimum
+{
+    public int min_cost(int[] arr , int n)
+        {
+            int i;
+            int[] dp = new int[n];
+        	dp[0] = arr[0];
+        	dp[3] = dp[0] + arr[3];
+        	dp[1] = dp[3] + arr[1] + arr[2];
+        	dp[2] = dp[3] + arr[2];
+        	
+           
+        	for(i=4;i<=n-3;i++)
+        		{
+        			dp[i] = arr[i] + Math.min(dp[i - 1] + arr[i + 1] + arr[i + 2] , Math.min( dp[i - 3] , dp[i - 2] + arr[i + 1] ) );
+        		}
+        	
+        	dp[n-1] = dp[n - 4] + arr[n - 1];
+        	return dp[n -1];
+        }
+}
